@@ -83,9 +83,9 @@ class Sketchy_Extended_valid_test(data.Dataset):
         self.vocab = vocab
 
         if type_skim == 'images':
-            self.dir_file = os.path.join(args.data_path, 'EXTEND_image_sketchy')
+            self.dir_file = os.path.join(args.data_path, 'Sketchy', 'EXTEND_image_sketchy_ready')
         elif type_skim == 'sketch':
-            sub_dir = 'tx_000000000000'
+            sub_dir = 'tx_000000000000_ready'
             self.dir_file = os.path.join(args.data_path, 'Sketchy', 'sketch', sub_dir)
         else:
             NameError(type_skim + ' not implemented!')
@@ -120,10 +120,9 @@ class Sketchy_Extended_train(data.Dataset):
         self.word2vec = class_emb
         self.vocab = vocab
 
-        self.sub_dirs = ['tx_000000000000', 'tx_000100000000', 'tx_000000000010', 'tx_000000000110', 'tx_000000001110',
-                         'tx_000000001010']
+        self.sub_dirs = ['tx_000000000000_ready']
         
-        self.dir_image = os.path.join(args.data_path, 'EXTEND_image_sketchy')
+        self.dir_image = os.path.join(args.data_path, 'Sketchy', 'EXTEND_image_sketchy_ready')
         self.dir_sketch = os.path.join(args.data_path, 'Sketchy', 'sketch')
         self.loader = default_image_loader
         self.fnames_sketch, self.cls_sketch = get_file_list(os.path.join(self.dir_sketch, self.sub_dirs[0]), self.train_class, 'sketch')

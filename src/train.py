@@ -88,6 +88,7 @@ def train(data_loader, model, optimizer, cuda, criterion, epoch, log_int=20):
         if log_int > 0 and i%log_int == 0:
             print('Epoch: [{0}]({1}/{2}) Average Loss {loss.avg:.3f} ( Sem: {loss_sem.avg} + Dom: {loss_dom.avg} + Spa: {loss_spa.avg}); Avg Time x Batch {b_time.avg:.3f}'
                 .format(epoch, i, len(data_loader), loss=losses, loss_sem=losses_sem, loss_dom=losses_dom, loss_spa=losses_spa, b_time=batch_time))
+
     print('Epoch: [{0}] Average Loss {loss.avg:.3f} ( {loss_sem.avg} + {loss_dom.avg} + {loss_spa.avg} ); Avg Time x Batch {b_time.avg:.3f}'
         .format(epoch, loss=losses, loss_sem=losses_sem, loss_dom=losses_dom, loss_spa=losses_spa, b_time=batch_time))
     return losses, losses_sem, losses_dom, losses_spa
@@ -236,7 +237,7 @@ def main():
 
     print('***Test***')
 
-    map_test= test(test_im_loader, test_sk_loader, [im_net, sk_net], args)
+    map_test = test(test_im_loader, test_sk_loader, [im_net, sk_net], args)
     print('Test mAP {mean_ap}%'.format(mean_ap=map_test))
     # print('Test mAP@200 {map_200}%'.format(map_200=map_200))
     # print('Test Precision@200 {prec_200}%'.format(prec_200=precision_200))
@@ -248,7 +249,6 @@ def main():
             print('Test mAP: {mean_ap:.3f}'.format(mean_ap=map_test), file=fp)
             # print('Test mAP@200: {map_200:.3f}'.format(map_200=map_200), file=fp)
             # print('Test Precision@200: {prec_200:.3f}'.format(prec_200=precision_200), file=fp)
-
 
 
 if __name__ == '__main__':
