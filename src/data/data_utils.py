@@ -11,7 +11,7 @@ import numpy as np
 
 def create_dict_texts(texts):
 
-    texts = sorted(list(set(texts)))
+    texts = [x if '-' not in x else x.replace('-', '_') for x in sorted(list(set(texts)))]
     d = {l: i for i, l in enumerate(texts)}
     return d
 

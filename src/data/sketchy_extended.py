@@ -31,6 +31,7 @@ def Sketchy_Extended(args, transform='None'):
         class_emb = np.load('./data/semantic_labels_sketchy.npy')  #../data/semantic_labels_sketchy.npy
         with open("./data/vocab_sketchy.pkl", "rb") as input_file:
             vocab = pickle.load(input_file)
+            vocab = [x if '-' not in x else x.replace('-', '_') for x in vocab]
     else:
         class_emb = create_class_embeddings(list_class, args.dataset)
         vocab = list_class
@@ -40,6 +41,9 @@ def Sketchy_Extended(args, transform='None'):
         test_class = fp.read().splitlines()
 
     list_class = [x for x in list_class if x not in test_class]
+
+    list_class = [x if '-' not in x else x.replace('-', '_') for x in list_class]
+    test_class = [x if '-' not in x else x.replace('-', '_') for x in test_class]
     # Random Shuffle
     random.seed(args.seed)
     shuffled_list_class = list_class
