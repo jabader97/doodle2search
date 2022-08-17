@@ -89,15 +89,15 @@ def test(im_loader, sk_loader, model, args, dict_class=None):
     nq = str_sim.shape[0]
     num_cores = min(multiprocessing.cpu_count(), 32)
     # # -sim because values in similarity means 0= un-similar 1= very-similar
-    # arg_sort_sim = (-sim).argsort()
-    # sort_sim = []
-    # sort_lst = []
-    # for indx in range(0, arg_sort_sim.shape[0]):
-    #     sort_sim.append(sim[indx, arg_sort_sim[indx, :]])
-    #     sort_lst.append(str_sim[indx, arg_sort_sim[indx, :]])
-    #
-    # sort_sim = np.array(sort_sim)
-    # sort_str_sim = np.array(sort_lst)
+    arg_sort_sim = (-sim).argsort()
+    sort_sim = []
+    sort_lst = []
+    for indx in range(0, arg_sort_sim.shape[0]):
+        sort_sim.append(sim[indx, arg_sort_sim[indx, :]])
+        sort_lst.append(str_sim[indx, arg_sort_sim[indx, :]])
+
+    sort_sim = np.array(sort_sim)
+    sort_str_sim = np.array(sort_lst)
 
 
     # aps_200 = Parallel(n_jobs=num_cores)(delayed(average_precision_score)(sort_str_sim[iq, 0:200], sort_sim[iq, 0:200])\
@@ -106,7 +106,7 @@ def test(im_loader, sk_loader, model, args, dict_class=None):
     # map_200 = np.mean(aps_200_actual)
     #
     # # Precision@200 means at the place 200th
-    # precision_200 = np.mean(sort_str_sim[:, 200])
+    precision_200 = np.mean(sort_str_sim[:, 200])
     #
 
 
@@ -163,6 +163,7 @@ def test(im_loader, sk_loader, model, args, dict_class=None):
     batch_time = time.time() - end
 
     print('* mAP {mean_ap:.3f}; Avg Time x Batch {b_time:.3f}'.format(mean_ap=map_, b_time=batch_time))
+    print('Prec@200: {}'.format(precision_200))
     return map_ #, map_200, precision_200
 
 
